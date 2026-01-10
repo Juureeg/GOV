@@ -1,0 +1,50 @@
+name: Build iOS App
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:  # Allows manual trigger from GitHub UI
+
+jobs:
+  build-ios:
+    runs-on: macos-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Select Xcode version
+        run: sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+
+      - name: Show Xcode version
+        run: xcodebuild -version
+
+      - name: Build iOS App (No Codesign)
+        run: |
+          xcodebuild clean build \
+            -project GOV.xcodeproj \
+            -scheme GOV \
+            -destination 'generic/platform=iOS' \
+            -configuration Release \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO \
+            -derivedDataPath build
+
+      - name: Create unsigned IPA
+        run: |
+          mkdir -p build/ipa
+          cd build/Build/Products/Release-iphoneos
+          mkdir Payload
+          cp -r GOV.app Payload/
+          zip -r ../../../ipa/GOV-unsigned.ipa Payload
+          rm -rf Payload
+
+      - name: Upload IPA artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-unsigned-ipa
+          path: build/ipa/GOV-unsigned.ipa
+          retention-days: 14
