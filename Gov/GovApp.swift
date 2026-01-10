@@ -11,7 +11,7 @@ import SwiftUI
 struct GovApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            CompleteDocumentApp()  // ← Use this instead
         }
     }
 }
