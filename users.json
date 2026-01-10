@@ -10,17 +10,6 @@
         "idCard5": "https://raw.githubusercontent.com/Juureeg/GOV/main/USERS/ArthurMalucelli/id_card5.jpeg",
         "profile": "https://raw.githubusercontent.com/Juureeg/GOV/main/USERS/ArthurMalucelli/id_card2.jpg"
       }
-    },
-    "annachiarello": {
-      "password": "123",
-      "name": "Anna Chiarello",
-      "images": {
-        "idCard2": "https://raw.githubusercontent.com/Juureeg/GOV/main/USERS/annachiarello/id_card2.jpg",
-        "idCard3": "https://raw.githubusercontent.com/Juureeg/GOV/main/USERS/annachiarello/id_card3.jpg",
-        "idCard4": "https://raw.githubusercontent.com/Juureeg/GOV/main/USERS/annachiarello/id_card4.jpg",
-        "idCard5": "https://raw.githubusercontent.com/Juureeg/GOV/main/USERS/annachiarello/id_card5.jpg",
-        "profile": "https://raw.githubusercontent.com/Juureeg/GOV/main/USERS/annachiarello/profile.jpg"
-      }
     }
   }
 }
