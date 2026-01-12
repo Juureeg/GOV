@@ -653,16 +653,23 @@ struct DocumentDetailView: View {
                     .padding(.horizontal, 8).padding(.vertical, 4).background(Color.yellow)
                     .padding(.top, 8)
 
-                // Image Carousel
-                TabView(selection: $currentPage) {
-                    ForEach(0..<idCardImages.count, id: \.self) { index in
-                        Image(uiImage: idCardImages[index])
-                            .resizable().scaledToFit().padding(.horizontal, 24)
-                            .tag(index)
+                // Image Carousel - PREENCHE o espaço disponível
+                GeometryReader { geometry in
+                    TabView(selection: $currentPage) {
+                        ForEach(0..<idCardImages.count, id: \.self) { index in
+                            Image(uiImage: idCardImages[index])
+                                .resizable()
+                                .scaledToFit()
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                .padding(.horizontal, 12)
+                                .tag(index)
+                        }
                     }
+                    .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
                 }
-                .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-                .frame(height: 530).padding(.vertical, 16)
+                .frame(height: UIScreen.main.bounds.height * 0.64) // 68% da altura da tela
+                .padding(.vertical, 8)
+
 
                 // Page Indicator
                 HStack(spacing: 8) {
@@ -670,7 +677,9 @@ struct DocumentDetailView: View {
                         Circle().fill(index == currentPage ? Color(red: 0x0e/255.0, green: 0x32/255.0, blue: 0x70/255.0) : Color.gray.opacity(0.3))
                             .frame(width: 10, height: 10)
                     }
-                }.padding(.bottom, 16)
+                }
+                .padding(.top, 10) // ADICIONE ESTA LINHA para empurrar para baixo
+                .padding(.bottom, 16)
 
                 Spacer()
                 Color.clear.frame(height: 80)
